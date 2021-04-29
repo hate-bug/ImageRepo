@@ -6,6 +6,33 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
 * Spring MVC
 * Junit Testing suite
 
+## Manual 
+* Endpoint: https://imagerepo1018.herokuapp.com/
+
+* Upload a single image with access information: 
+  - https://imagerepo1018.herokuapp.com/api/image/save 
+  - Method: POST
+  - Body: form-data 
+    - file: image.png 
+    - isPublic: true/false
+   
+* Upload bulk images (All images will be set as private by default)
+  - https://imagerepo1018.herokuapp.com/api/image/saveall
+  - Method: POST
+  - Body: form-data
+    - file: image1.png, image2.jpg ... 
+    
+* Provide Permission information for images based on Id 
+  - https://imagerepo1018.herokuapp.com/api/image/updateimages
+  - Method: PUT
+  - Body: JSON 
+    - [{"imageId": 1, 
+        "isPublic": false}, 
+        {"imageId": 3, 
+        "isPublic": true} ]
+ 
+   
+
 ## UML Diagram: 
 ![image](https://user-images.githubusercontent.com/19366514/116284147-be81b980-a75a-11eb-9b02-6b3e5bd916b2.png)
 
