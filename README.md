@@ -57,7 +57,7 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
 ![image](https://user-images.githubusercontent.com/19366514/116284083-ad38ad00-a75a-11eb-9a98-463bd967b431.png)
 
 ## DataBase
-SQL Relationa DB powered by H2DB and Postgres SQL Service
+SQL Relationa DB powered by H2 In-memory Database
 
 ## DevOps Pipeline
 * Travis CI (Continuous Integration)
