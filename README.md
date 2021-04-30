@@ -31,6 +31,13 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
         {"imageId": 3, 
         "isPublic": true} ]
  
+* Register user with password 
+  - https://imagerepo1018.herokuapp.com/api/user/register
+  - Method: POST
+  - Body: JSON
+    - {"userName" : "jizhe", 
+       "userPassword" : "password"}
+  
    
 
 ## UML Diagram: 
