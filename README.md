@@ -36,9 +36,16 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
   - Method: POST
   - Body: JSON
     - {"userName" : "jizhe", 
-       "userPassword" : "password"}
+       "password" : "password"}
+
+* User log in 
+  - https://imagerepo1018.herokuapp.com/api/user/login
+  - Method: POST
+  - Body: JSON
+    - {"username" : "jizhe", 
+       "password" : "password"}
+  - Response: JWT 
   
-   
 
 ## UML Diagram: 
 ![image](https://user-images.githubusercontent.com/19366514/116284147-be81b980-a75a-11eb-9b02-6b3e5bd916b2.png)
