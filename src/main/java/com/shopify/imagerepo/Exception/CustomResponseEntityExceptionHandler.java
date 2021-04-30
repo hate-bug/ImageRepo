@@ -14,7 +14,13 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 
     @ExceptionHandler
     public final ResponseEntity<?> handleImageSaveException (ImageSaveException imageException, WebRequest request) {
-        ImageSaveException exceptionResponse = new ImageSaveException(imageException.getMessage());
+        CustomResponse exceptionResponse = new CustomResponse(imageException.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<?> handleUserNameExistsException (UsersaveException userexception, WebRequest request) {
+        CustomResponse exceptionResponse = new CustomResponse(userexception.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
