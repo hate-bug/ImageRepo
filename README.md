@@ -11,28 +11,6 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
 ## Manual 
 * Endpoint: https://imagerepo1018.herokuapp.com/
 
-* Upload a single image with access information: 
-  - https://imagerepo1018.herokuapp.com/api/image/save 
-  - Method: POST
-  - Body: form-data 
-    - file: image.png 
-    - isPublic: true/false
-   
-* Upload bulk images (All images will be set as private by default)
-  - https://imagerepo1018.herokuapp.com/api/image/saveall
-  - Method: POST
-  - Body: form-data
-    - file: image1.png, image2.jpg ... 
-    
-* Provide Permission information for images based on Id 
-  - https://imagerepo1018.herokuapp.com/api/image/updateimages
-  - Method: PUT
-  - Body: JSON 
-    - [{"imageId": 1, 
-        "isPublic": false}, 
-        {"imageId": 3, 
-        "isPublic": true} ]
- 
 * Register user with password 
   - https://imagerepo1018.herokuapp.com/api/user/register
   - Method: POST
@@ -48,15 +26,41 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
        "password" : "password"}
   - Response : JSON
     - If success:  
-    - {"jwtTpken" : "string_for_jwt_token", 
+    - {"jwtToken" : "string_for_jwt_token", 
        "success" " "true"}
     - If failed: 
     - {Invalid Username, 
        Invalid Password}
 
+* Upload a single image with access information: 
+  - https://imagerepo1018.herokuapp.com/api/image/save 
+  - Method: POST
+  - Put in header: Authorization: jwtToken
+  - Body: form-data 
+    - file: image.png 
+    - isPublic: true/false
+   
+* Upload bulk images (All images will be set as private by default)
+  - https://imagerepo1018.herokuapp.com/api/image/saveall
+  - Method: POST
+  - Put in header: Authorization: jwtToken
+  - Body: form-data
+    - file: image1.png, image2.jpg ... 
+    
+* Provide Permission information for images based on Id 
+  - https://imagerepo1018.herokuapp.com/api/image/updateimages
+  - Method: PUT
+  - Put in header: Authorization: jwtToken
+  - Body: JSON 
+    - [{"imageId": 1, 
+        "isPublic": false}, 
+        {"imageId": 3, 
+        "isPublic": true}]
+
 * User Delete Images that belongs to him (access-control)
   - https://imagerepo1018.herokuapp.com/api/user/login
   - Method: DELETE 
+  - Put in header: Authorization: jwtToken
   - Body: JSON that contains Image ID
     - [1,2,3]
 
