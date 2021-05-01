@@ -61,7 +61,7 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
   - https://imagerepo1018.herokuapp.com/api/image/deleteimages
   - Method: DELETE 
   - Put in header: Authorization: jwtToken
-  - Body: JSON that contains Image ID
+  - Body: JSON Array that contains Image ID
     - [1,2,3]
 
 ## UML Diagram: 
