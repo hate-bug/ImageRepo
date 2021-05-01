@@ -1,6 +1,7 @@
 package com.shopify.imagerepo.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -32,6 +33,19 @@ public class Image {
 
     @NotNull(message = "Image type cannot be empty")
     private String type;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @NotNull(message = "User not found.")
+    @JsonIgnore
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getType() {
         return type;

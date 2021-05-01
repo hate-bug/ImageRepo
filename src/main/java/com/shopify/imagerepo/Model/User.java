@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @NotNull @NotBlank (message = "The password cannot be blank for user")
     private String password;
 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private Set<Image> imageList;
 
     public void setUserPassword(String password) {

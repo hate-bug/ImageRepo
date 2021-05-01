@@ -24,7 +24,7 @@ public class UserService {
         }
         try {
             user.setUserPassword(bCryptPasswordEncoder.encode(user.getPassword())); // encode user password
-            return new ResponseEntity<>(this.userRepository.save(user), HttpStatus.CREATED);
+            return new ResponseEntity<>(this.userRepository.save(user), HttpStatus.OK);
         } catch (Exception e) {
             throw new UsersaveException ("User name and password cannot be empty");
         }
