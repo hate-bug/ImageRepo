@@ -58,7 +58,7 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
         "isPublic": true}]
 
 * User Delete Images that belongs to him (access-control)
-  - https://imagerepo1018.herokuapp.com/api/user/login
+  - https://imagerepo1018.herokuapp.com/api/image/deleteimages
   - Method: DELETE 
   - Put in header: Authorization: jwtToken
   - Body: JSON that contains Image ID
