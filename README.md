@@ -6,6 +6,7 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
 * Spring MVC
 * User Authentication secured by Spring Security 
 * User Authorization secured by JWT token
+* User password are encrypted by BCryptPasswordEncoder
 * Junit Testing suite
 
 ## Manual 
