@@ -36,18 +36,29 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
 * Register user with password 
   - https://imagerepo1018.herokuapp.com/api/user/register
   - Method: POST
-  - Body: JSON
+  - Body: JSON that contains user credentials
     - {"userName" : "jizhe", 
        "password" : "password"}
 
 * User log in 
   - https://imagerepo1018.herokuapp.com/api/user/login
   - Method: POST
-  - Body: JSON
+  - Body: JSON that contains user credentials
     - {"username" : "jizhe", 
        "password" : "password"}
-  - Response: JWT 
-  
+  - Response : JSON
+    - If success:  
+    - {"jwtTpken" : "string_for_jwt_token", 
+       "success" " "true"}
+    - If failed: 
+    - {Invalid Username, 
+       Invalid Password}
+
+* User Delete Images that belongs to him (access-control)
+  - https://imagerepo1018.herokuapp.com/api/user/login
+  - Method: DELETE 
+  - Body: JSON that contains Image ID
+    - [1,2,3]
 
 ## UML Diagram: 
 ![image](https://user-images.githubusercontent.com/19366514/116284147-be81b980-a75a-11eb-9b02-6b3e5bd916b2.png)
