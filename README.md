@@ -101,14 +101,13 @@ A public endpoint that contains a CRUD repository allows Users to store, query a
         }
 
 ## UML Diagram: 
-![image](https://user-images.githubusercontent.com/19366514/116284147-be81b980-a75a-11eb-9b02-6b3e5bd916b2.png)
-
+![image](https://user-images.githubusercontent.com/19366514/116819682-0f205a80-ab3f-11eb-9747-4108ed433f59.png)
 
 ## ORM Mapping: 
-![image](https://user-images.githubusercontent.com/19366514/116284083-ad38ad00-a75a-11eb-9a98-463bd967b431.png)
+![image](https://user-images.githubusercontent.com/19366514/116819229-21999480-ab3d-11eb-955c-baa3f4cca250.png)
 
 ## DataBase
-SQL Relationa DB powered by H2 In-memory Database
+SQL Relationa DB powered by In-memory H2 Database
 
 ## DevOps Pipeline
 * Travis CI (Continuous Integration)
