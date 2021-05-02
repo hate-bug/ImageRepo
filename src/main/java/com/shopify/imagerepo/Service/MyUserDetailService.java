@@ -24,6 +24,7 @@ public class MyUserDetailService implements UserDetailsService {
         if (!result.isPresent()) {
             throw new UserNotFoundException("Username not found");
         }
+
         return result.get();
     }
 
@@ -34,6 +35,7 @@ public class MyUserDetailService implements UserDetailsService {
         if (!result.isPresent()) {
             throw new UserNotFoundException("User Id not found");
         }
+
         return result.get();
     }
 }

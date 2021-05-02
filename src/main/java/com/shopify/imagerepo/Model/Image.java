@@ -18,6 +18,7 @@ public class Image {
 
     @Lob
     @NotNull(message = "Image content cannot be empty")
+    @JsonIgnore
     private byte[] content;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

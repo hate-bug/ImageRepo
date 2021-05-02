@@ -14,9 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import javax.transaction.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -90,6 +91,62 @@ public class ImageControllerTest {
         this.mockMvc.perform(put("/api/image/updateimages").contentType("application/json").content(changePermission2))
                 .andExpect(status().isBadRequest());
         assertFalse(this.imageRepository.findById(Integer.toUnsignedLong(2)).get().isPublic());
+    }
+
+    /**
+     * Test scenario: User is only able to delete the image that was created by himself
+     * @throws Exception
+     */
+    @Test
+    @WithMockUser(username = "user1")
+    @Transactional
+    public void testImageDelete () throws Exception {
+        String deleteString1 = "[1]";
+        String deleteString2 = "[2]";
+        this.mockMvc.perform(delete("/api/image/deleteimages").contentType("application/json").content(deleteString1))
+                .andExpect(status().isOk());
+        assertFalse(this.imageRepository.findById(Integer.toUnsignedLong(1)).isPresent());
+
+        this.mockMvc.perform(delete("/api/image/deleteimages").contentType("application/json").content(deleteString2))
+                .andExpect(status().isBadRequest());
+        assertTrue(this.imageRepository.findById(Integer.toUnsignedLong(2)).isPresent());
+
+    }
+
+    /**
+     * Test user can only access public images or image that created by himself
+     * @throws Exception
+     */
+    @Test
+    @WithMockUser(username = "user1")
+    @Transactional
+    public void testImageGet () throws Exception {
+        Image image3 = new Image();
+        image3.setName("image3");
+        image3.setPublic(true);
+        image3.setUser(user2);
+        image3.setType("jpg");
+        image3.setContent(new byte[400]);
+        this.imageRepository.save(image3);
+        this.mockMvc.perform(get("/api/image/getimagebyid?id=1"))
+                .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/image/getimagebyid?id=2"))
+                .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/image/getimagebyid?id=3"))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Test user can access all images information that are public or created by himself
+     * @throws Exception
+     */
+    @Test
+    @WithMockUser(username = "user1")
+    @Transactional
+    public void testImageGetAll () throws Exception {
+        MvcResult result = this.mockMvc.perform(get("/api/image/getallimages"))
+                .andExpect(status().isOk())
+                .andReturn();
     }
 
 }

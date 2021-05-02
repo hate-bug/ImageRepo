@@ -1,9 +1,11 @@
 package com.shopify.imagerepo.Service;
 
+import com.shopify.imagerepo.Exception.ImageAccessException;
 import com.shopify.imagerepo.Exception.ImageSaveException;
 import com.shopify.imagerepo.Model.Image;
 import com.shopify.imagerepo.Model.User;
 import com.shopify.imagerepo.Payload.ImageAccessibilityPayload;
+import com.shopify.imagerepo.Payload.ImageItem;
 import com.shopify.imagerepo.Repository.ImageRepository;
 import com.shopify.imagerepo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ParseFileService {
@@ -23,6 +23,8 @@ public class ParseFileService {
 
     @Autowired
     private UserRepository userRepository;
+
+    private final String imageURL = "/api/image/getimagebyid?id=";
 
     public ResponseEntity<?> saveImage (MultipartFile file, boolean isPublic, String userName) {
 
@@ -97,5 +99,50 @@ public class ParseFileService {
         }
         return new ResponseEntity<>("All images deleted.", HttpStatus.OK);
     }
+
+    public ResponseEntity<?> getImagebyId (Long imageId, String userName) {
+        Optional<Image> optionalImage = this.imageRepository.findById(imageId);
+        if (optionalImage.isPresent() && (optionalImage.get().getUser().getUsername().equals(userName) || optionalImage.get().isPublic())) {
+            Image image = optionalImage.get();
+            return new ResponseEntity<>(image.getContent(), HttpStatus.OK);
+        } else {
+            throw new ImageAccessException("Image not accessible");
+        }
+    }
+
+    public ResponseEntity<?> getAllImages (String userName, String requesturl) {
+        requesturl += this.imageURL;
+        List <ImageItem> imageList = new LinkedList<>();
+        Optional<User> optionalUser = this.userRepository.findUserByUserName(userName);
+        if (optionalUser.isPresent()) {
+            Iterable<Image> images = this.imageRepository.findAllByUserOrisPublic(optionalUser.get().getId());
+
+            for (Image image: images) {
+                ImageItem imageItem = new ImageItem(image.getName(),requesturl+image.getId());
+                imageList.add(imageItem);
+            }
+            return new ResponseEntity<>(imageList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User can not be authorized", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<?> getAllImagesByName (String fileName, String userName, String url) {
+        url += this.imageURL;
+        List<ImageItem> imageList = new LinkedList<>();
+        Optional<User> optionalUser = this.userRepository.findUserByUserName(userName);
+        if (optionalUser.isPresent()) {
+            Iterable<Image> images = this.imageRepository.findImagesByName(optionalUser.get().getId(), fileName);
+
+            for (Image image: images) {
+                ImageItem imageItem = new ImageItem(image.getName(),url+image.getId());
+                imageList.add(imageItem);
+            }
+            return new ResponseEntity<>(imageList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User can not be authorized", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

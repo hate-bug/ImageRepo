@@ -24,4 +24,16 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<?> handleUserNameNotfoundException (UserNotFoundException ex, WebRequest request) {
+        CustomResponse response = new CustomResponse(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<?> handleImageAccessHandler(ImageAccessException ex, WebRequest request) {
+        CustomResponse response = new CustomResponse(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 }
