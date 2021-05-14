@@ -14,6 +14,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("api/image")
+@CrossOrigin
 public class ImageController {
 
     @Autowired
